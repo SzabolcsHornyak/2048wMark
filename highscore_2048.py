@@ -1,3 +1,3 @@
 # highscore
 def highscore():
-    pass
+    highscore = open(highscore.csv)
