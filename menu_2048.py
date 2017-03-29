@@ -2,13 +2,9 @@ from move_2048 import *
 import os
 
 
-def gen_matrix():
-    global Matrix
-    Matrix = [[0 for x in range(w)] for y in range(h)]
-
-
 def custom_size():
-    global h, w
+    w = 5
+    h = 5
     os.system('clear')
     print('2048 GAME\n')
     w_inp = input('Set width: ')
@@ -23,7 +19,8 @@ def custom_size():
     except ValueError:
         print ('You got the default value: ' + str(h) + '\n')
         input('\nPRESS ANY KEY TO CONTINUE')
-    gen_matrix()
+    #set_hw(h, w)
+    gen_matrix(h, w)
 
 
 def choose_menu():
@@ -37,24 +34,16 @@ def choose_menu():
     print('(c)ustom size\n')
     diff_in = input('Choose difficulty: ')
     if diff_in == 'e':
-        h = 6
-        w = 6
-        gen_matrix()
+        gen_matrix(6, 6)
 
     if diff_in == 'n':
-        h = 5
-        w = 5
-        gen_matrix()
+        gen_matrix(5, 5)
 
     if diff_in == 'h':
-        h = 4
-        w = 4
-        gen_matrix()
+        gen_matrix(4, 4)
 
     if diff_in == 'i':
-        h = 3
-        w = 3
-        gen_matrix()
+        gen_matrix(3, 3)
 
     if diff_in == 'c':
         custom_size()

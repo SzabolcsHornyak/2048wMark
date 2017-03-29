@@ -3,39 +3,48 @@ from random import randint
 
 empty_X = []
 empty_Y = []
-w = 6
+w = 5
 h = 5
 Matrix = [[0 for x in range(w)] for y in range(h)]
 temp_array = [[0 for x in range(w)] for y in range(h)]
 new_value_X = -1
 new_value_Y = -1
+points = 0
+
+
+def set_hw(input_array):
+    global h, w
+    h = len(input_array)
+    w = len(input_array[0])
+    return h, w
+
+
+def gen_matrix(iw, ih):
+    global Matrix, temp_array
+    Matrix = [[0 for x in range(iw)] for y in range(ih)]
+    temp_array = [[0 for x in range(iw)] for y in range(ih)]
+    set_hw(Matrix)
 
 
 def movement(directon):
-    global last_move, act_move, new_value_X, Matrix, temp_array
+    global new_value_X
     globals()["move_" + directon]()
     globals()["merge_" + directon]()
     globals()["move_" + directon]()
-    if isChange() is False:
+    if (Matrix != temp_array):
         add_rand_number()
     else:
         new_value_X = -1
+
     draw_matrix()
-    copy_matrix(Matrix, temp_array)
+    copy_matrix()
 
 
-def copy_matrix(array1, array2):
-    for i in range(len(array1) - 1):
-        for j in range(len(array1[i]) - 1):
-            array2[j][i] = array1[j][i]
-    return array2
-
-
-def isChange():
-    ret_val = False
-    if (Matrix == temp_array):
-        ret_val = True
-    return ret_val
+def copy_matrix():
+    global temp_array, Matrix
+    for i in range(len(Matrix)):
+        for j in range(len(Matrix[i])):
+            temp_array[j][i] = Matrix[j][i]
 
 
 def empty_mapping():
@@ -107,20 +116,6 @@ def move_left():
             Matrix[hi][wi] = temp_array[wi]
 
 
-def right():
-    global last_move, act_move, new_value_X
-    act_move = 2
-    move_right()
-    merge_right()
-    move_right()
-    if act_move != last_move:
-        add_rand_number()
-    else:
-        new_value_X = -1
-    draw_matrix()
-    last_move = 2
-
-
 def merge_right():
     global points
     for hi in range(h):
@@ -190,9 +185,6 @@ def move_up():
             Matrix[hi][wi] = temp_array[hi]
 
 
-points = 0
-
-
 def draw_matrix_lines():
     global new_value_Y, new_value_X
     char_long = 5
@@ -210,8 +202,6 @@ def draw_matrix_lines():
         print(matrix_empty_line)
         print(matrix_line + '\x1b[0m')
         print(matrix_empty_line)
-    print(Matrix)
-    print(temp_array)
 
 
 def draw_matrix():
@@ -220,7 +210,7 @@ def draw_matrix():
     if (empty_mapping() > 0):
         draw_matrix_lines()
     else:
-        if (isMerged() == False):
+        if (isMerged() is False):
             draw_matrix_lines()
             print('')
             spaces = ' ' * 20

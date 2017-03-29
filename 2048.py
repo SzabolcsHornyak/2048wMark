@@ -41,4 +41,4 @@ while True:
         add_rand_number()
         draw_matrix()
     else:
-        draw_matrix()
+        pass  # draw_matrix()
