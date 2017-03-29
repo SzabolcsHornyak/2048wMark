@@ -1,10 +1,10 @@
 '''
 - Feldarabolás: Main / mozgatás & reset / highscore / kirajzolás / menü
 - Bugfix: Ha változás történik a mátrixban csak akkor adhat hozzá új értéket
-- globális változók csökkentése
-- High score fileba / Dedicated to Mark
-- ha marad időnk: HP game (időre high score)
-- docstrings
+- Globális változók csökkentése
+- High score fileba elmentése, betöltése új highscore hozzá adása / Dedicated to Mark
+- Docstringsek készítése
+- Ha marad időnk: HP game feature. Időre kell egy bizonyos pontot elérni.
 '''
 ##############################################################################
 
