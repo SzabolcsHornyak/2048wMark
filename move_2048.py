@@ -1,5 +1,8 @@
 import os
 from random import randint
+import copy
+import sys
+
 empty_X = []
 empty_Y = []
 
@@ -11,6 +14,15 @@ new_value_X = -1
 new_value_Y = -1
 act_move = 0
 last_move = -1
+
+
+def isChange():
+    global Matrix, temp_array
+    ret_val = False
+    if (Matrix == temp_array):
+        ret_val = True
+    temp_array = copy.copy(Matrix)
+    return ret_val
 
 
 def empty_mapping():
@@ -61,6 +73,7 @@ def isMerged():
 def left():
     global last_move, act_move, new_value_X
     act_move = 1
+    isChange()
     move_left()
     merge_left()
     move_left()
