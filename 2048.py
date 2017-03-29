@@ -25,13 +25,13 @@ while True:
     print('')
     c = input('MOVE: w/a/s/d | EXIT: x | NEW GAME: n | YOUR CHOICE? ')
     if c == ('w'):
-        up()
+        movement('up')
     if c == ('s'):
-        down()
+        movement('down')
     if c == ('a'):
-        left()
+        movement('left')
     if c == ('d'):
-        right()
+        movement('right')
     if c == ('x'):
         break
     if c == ('n'):
