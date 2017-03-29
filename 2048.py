@@ -11,7 +11,7 @@
 # 2048 another program menus
 from menu_2048 import *
 from move_2048 import *
-from highscore_2048 import *
+#from highscore_2048 import *
 
 
 # MAIN THREAD
