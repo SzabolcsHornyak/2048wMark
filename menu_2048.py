@@ -1,3 +1,4 @@
+from move_2048 import *
 import os
 
 

@@ -1,10 +1,10 @@
 '''
 - Feldarabolás: Main / mozgatás & reset / highscore / kirajzolás / menü
 - Bugfix: Ha változás történik a mátrixban csak akkor adhat hozzá új értéket
-- globális változók csökkentése
-- High score fileba / Dedicated to Mark
-- ha marad időnk: HP game (időre high score)
-- docstrings
+- Globális változók csökkentése
+- High score fileba elmentése, betöltése új highscore hozzá adása / Dedicated to Mark
+- Docstringsek készítése
+- Ha marad időnk: HP game feature. Időre kell egy bizonyos pontot elérni.
 '''
 ##############################################################################
 
@@ -25,13 +25,13 @@ while True:
     print('')
     c = input('MOVE: w/a/s/d | EXIT: x | NEW GAME: n | YOUR CHOICE? ')
     if c == ('w'):
-        up()
+        movement('up')
     if c == ('s'):
-        down()
+        movement('down')
     if c == ('a'):
-        left()
+        movement('left')
     if c == ('d'):
-        right()
+        movement('right')
     if c == ('x'):
         break
     if c == ('n'):

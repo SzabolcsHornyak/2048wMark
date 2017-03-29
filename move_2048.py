@@ -1,16 +1,41 @@
 import os
 from random import randint
+
 empty_X = []
 empty_Y = []
-
 w = 6
 h = 5
 Matrix = [[0 for x in range(w)] for y in range(h)]
-temp_array = []
+temp_array = [[0 for x in range(w)] for y in range(h)]
 new_value_X = -1
 new_value_Y = -1
-act_move = 0
-last_move = -1
+
+
+def movement(directon):
+    global last_move, act_move, new_value_X, Matrix, temp_array
+    globals()["move_" + directon]()
+    globals()["merge_" + directon]()
+    globals()["move_" + directon]()
+    if isChange() is False:
+        add_rand_number()
+    else:
+        new_value_X = -1
+    draw_matrix()
+    copy_matrix(Matrix, temp_array)
+
+
+def copy_matrix(array1, array2):
+    for i in range(len(array1) - 1):
+        for j in range(len(array1[i]) - 1):
+            array2[j][i] = array1[j][i]
+    return array2
+
+
+def isChange():
+    ret_val = False
+    if (Matrix == temp_array):
+        ret_val = True
+    return ret_val
 
 
 def empty_mapping():
@@ -43,6 +68,7 @@ def reset_matrix():
     for hi in range(h):
         for wi in range(w):
             Matrix[hi][wi] = 0
+            temp_array[hi][wi] = 0
 
 
 def isMerged():
@@ -56,20 +82,6 @@ def isMerged():
             if (Matrix[hi][wi] == Matrix[hi][wi + 1]) and (Matrix[hi][wi] != 0) and (Matrix[hi][wi + 1] != 0):
                 b_merged = True
     return b_merged
-
-
-def left():
-    global last_move, act_move, new_value_X
-    act_move = 1
-    move_left()
-    merge_left()
-    move_left()
-    if act_move != last_move:
-        add_rand_number()
-    else:
-        new_value_X = -1
-    draw_matrix()
-    last_move = 1
 
 
 def merge_left():
@@ -132,20 +144,6 @@ def move_right():
             Matrix[hi][wi] = temp_array[wi]
 
 
-def down():
-    global last_move, act_move, new_value_X
-    act_move = 3
-    move_down()
-    merge_down()
-    move_down()
-    if act_move != last_move:
-        add_rand_number()
-    else:
-        new_value_X = -1
-    draw_matrix()
-    last_move = 3
-
-
 def merge_down():
     global points
     for wi in range(w):
@@ -167,20 +165,6 @@ def move_down():
             temp_array.insert(0, 0)
         for hi in range(h):
             Matrix[hi][wi] = temp_array[hi]
-
-
-def up():
-    global last_move, act_move, new_value_X
-    act_move = 4
-    move_up()
-    merge_up()
-    move_up()
-    if act_move != last_move:
-        add_rand_number()
-    else:
-        new_value_X = -1
-    draw_matrix()
-    last_move = 4
 
 
 def merge_up():
@@ -226,6 +210,8 @@ def draw_matrix_lines():
         print(matrix_empty_line)
         print(matrix_line + '\x1b[0m')
         print(matrix_empty_line)
+    print(Matrix)
+    print(temp_array)
 
 
 def draw_matrix():
