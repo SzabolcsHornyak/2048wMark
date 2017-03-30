@@ -3,6 +3,9 @@ import os
 
 
 def custom_size():
+    '''
+    Input custom size of matrix
+    '''
     w = 5
     h = 5
     os.system('clear')
@@ -34,6 +37,9 @@ def custom_size():
 
 
 def choose_menu():
+    '''
+    Generate menu
+    '''
     global h, w
     os.system('clear')
     print(" _____  _____    ___  _____")

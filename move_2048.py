@@ -4,14 +4,17 @@ from highscore_2048 import *
 
 empty_X = []
 empty_Y = []
-Matrix = [[0 for x in range(5)] for y in range(5)]
-temp_array = [[0 for x in range(5)] for y in range(5)]
+Matrix = [[0 for x in range(3)] for y in range(3)]
+temp_array = [[0 for x in range(3)] for y in range(3)]
 new_value_X = -1
 new_value_Y = -1
 points = 0
 
 
-def array_size(input_array, h_or_W='h'):
+def array_size(input_array=Matrix, h_or_W='h'):
+    '''
+    determine to the matrix width and height
+    '''
     h = len(input_array)
     w = len(input_array[0])
     if h_or_W == 'h':
@@ -21,6 +24,9 @@ def array_size(input_array, h_or_W='h'):
 
 
 def gen_matrix(iw, ih):
+    '''
+    generate an empty matrix and temp_array
+    '''
     global Matrix, temp_array
     Matrix = [[0 for x in range(iw)] for y in range(ih)]
     temp_array = [[0 for x in range(iw)] for y in range(ih)]
@@ -28,6 +34,10 @@ def gen_matrix(iw, ih):
 
 
 def movement(directon):
+    '''
+    This function makeing the movement.
+    It calls the other movement functions
+    '''
     global new_value_X
     globals()["move_" + directon]()
     globals()["merge_" + directon]()
@@ -42,6 +52,9 @@ def movement(directon):
 
 
 def copy_matrix():
+    '''
+    Copy the Matrix to the temp_array for future inspeting the differences
+    '''
     global temp_array, Matrix
     for i in range(len(Matrix)):
         for j in range(len(Matrix[i])):
@@ -49,6 +62,9 @@ def copy_matrix():
 
 
 def empty_mapping(array1=Matrix):
+    '''
+    Indentify the empty field and stores the coordinates to the empty_X and empty_Y
+    '''
     del empty_X[:]
     del empty_Y[:]
     for hi in range(array_size(array1, 'h')):
@@ -60,6 +76,9 @@ def empty_mapping(array1=Matrix):
 
 
 def add_rand_number():
+    '''
+    add random 2 or 4 number to the empty fields
+    '''
     numbers = [2, 4, 4]
     global new_value_X, new_value_Y
     if (empty_mapping(Matrix) > 0):
@@ -73,6 +92,9 @@ def add_rand_number():
 
 
 def reset_matrix():
+    '''
+    reseting the matrix
+    '''
     global points
     points = 0
     for hi in range(array_size(Matrix, 'h')):
@@ -82,6 +104,10 @@ def reset_matrix():
 
 
 def isMerged():
+    '''
+    inspect the matrix for the cells are merged somehow.
+    If possible to merge get back True.
+    '''
     b_merged = False
     for wi in range(array_size(Matrix, 'w')):
         for hi in range(array_size(Matrix, 'h') - 1):
@@ -95,6 +121,9 @@ def isMerged():
 
 
 def merge_left():
+    '''
+    Merge left direction
+    '''
     global points
     for hi in range(array_size(Matrix, 'h')):
         temp_array = []
@@ -106,6 +135,9 @@ def merge_left():
 
 
 def move_left():
+    '''
+    Move left direction
+    '''
     for hi in range(array_size(Matrix, 'h')):
         temp_array = []
         for wi in range(array_size(Matrix, 'w')):  # check the numbers above zero and move it!
@@ -118,6 +150,9 @@ def move_left():
 
 
 def merge_right():
+    '''
+    Merge right direction
+    '''
     global points
     for hi in range(array_size(Matrix, 'h')):
         temp_array = []
@@ -129,6 +164,9 @@ def merge_right():
 
 
 def move_right():
+    '''
+    Move right direction
+    '''
     for hi in range(array_size(Matrix, 'h')):
         temp_array = []
         for wi in range(array_size(Matrix, 'w')):
@@ -141,6 +179,9 @@ def move_right():
 
 
 def merge_down():
+    '''
+    Merge down direction
+    '''
     global points
     for wi in range(array_size(Matrix, 'w')):
         temp_array = []
@@ -152,6 +193,9 @@ def merge_down():
 
 
 def move_down():
+    '''
+    Move down direction
+    '''
     for wi in range(array_size(Matrix, 'w')):
         temp_array = []
         for hi in range(array_size(Matrix, 'h')):
@@ -164,6 +208,9 @@ def move_down():
 
 
 def merge_up():
+    '''
+    Merge up direction
+    '''
     global points
     for wi in range(array_size(Matrix, 'w')):
         temp_array = []
@@ -175,6 +222,9 @@ def merge_up():
 
 
 def move_up():
+    '''
+    Move up direction
+    '''
     for wi in range(array_size(Matrix, 'w')):
         temp_array = []
         for hi in range(array_size(Matrix, 'h')):
@@ -187,6 +237,9 @@ def move_up():
 
 
 def draw_matrix_lines():
+    '''
+    Draw the content of the matrix
+    '''
     global new_value_Y, new_value_X
     char_long = 5
     for hi in range(array_size(Matrix, 'h')):
@@ -206,6 +259,9 @@ def draw_matrix_lines():
 
 
 def draw_matrix():
+    '''
+    draw the header of matrix, and cheking: 'the game is ended or not'
+    '''
     os.system('clear')
     print(" _____  _____    ___  _____")
     print("/ __  \|  _  |  /   ||  _  |")
@@ -231,6 +287,9 @@ def draw_matrix():
 
 
 def int_to_color(iy, ix):
+    '''
+    Get back the color of each cell depend of the cell value
+    '''
     global new_value_X, new_value_Y
     icolor = Matrix[iy][ix]
     ret_color = '\x1b[0;30;47m'
