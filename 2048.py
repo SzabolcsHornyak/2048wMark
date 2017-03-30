@@ -1,6 +1,6 @@
 '''
-- Feldarabolás: Main / mozgatás & reset / highscore / kirajzolás / menü
-- Bugfix: Ha változás történik a mátrixban csak akkor adhat hozzá új értéket
+--  Feldarabolás: Main / mozgatás & reset / highscore / kirajzolás / menü
+-- Bugfix: Ha változás történik a mátrixban csak akkor adhat hozzá új értéket
 - Globális változók csökkentése
 - High score fileba elmentése, betöltése új highscore hozzá adása / Dedicated to Mark
 - Docstringsek készítése

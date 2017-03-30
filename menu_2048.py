@@ -7,15 +7,21 @@ def custom_size():
     h = 5
     os.system('clear')
     print('2048 GAME\n')
-    w_inp = input('Set width: ')
+    w_inp = input('Set width (max 10): ')
     try:
         w = int(w_inp)
+        if w > 10:
+            w = 10
+        print ('Width will be: ' + str(w))
     except ValueError:
         print ('You got the default value: ' + str(w) + '\n')
 
-    h_inp = input('Set height: ')
+    h_inp = input('Set height (max 10): ')
     try:
         h = int(h_inp)
+        if h > 10:
+            h = 10
+        print ('Height will be: ' + str(h))
     except ValueError:
         print ('You got the default value: ' + str(h) + '\n')
         input('\nPRESS ANY KEY TO CONTINUE')
@@ -26,7 +32,12 @@ def custom_size():
 def choose_menu():
     global h, w
     os.system('clear')
-    print('2048 GAME\n')
+    print(" _____  _____    ___  _____")
+    print("/ __  \|  _  |  /   ||  _  |")
+    print("`' / /'| |/' | / /| | \ V / ")
+    print("  / /  |  /| |/ /_| | / _ \ ")
+    print("./ /___\ |_/ /\___  || |_| |")
+    print("\_____/ \___/     |_/\_____/\n")
     print('(e)asy       6x6')
     print('(n)ormal     5x5')
     print('(h)ard       4x4')

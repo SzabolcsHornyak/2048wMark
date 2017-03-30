@@ -3,27 +3,28 @@ from random import randint
 
 empty_X = []
 empty_Y = []
-w = 5
-h = 5
-Matrix = [[0 for x in range(w)] for y in range(h)]
-temp_array = [[0 for x in range(w)] for y in range(h)]
+Matrix = [[0 for x in range(5)] for y in range(5)]
+temp_array = [[0 for x in range(5)] for y in range(5)]
 new_value_X = -1
 new_value_Y = -1
 points = 0
 
 
-def set_hw(input_array):
+def array_size(input_array, h_or_W='h'):
     global h, w
     h = len(input_array)
     w = len(input_array[0])
-    return h, w
+    if h_or_W == h:
+        return h
+    else:
+        return w
 
 
 def gen_matrix(iw, ih):
     global Matrix, temp_array
     Matrix = [[0 for x in range(iw)] for y in range(ih)]
     temp_array = [[0 for x in range(iw)] for y in range(ih)]
-    set_hw(Matrix)
+    array_size(Matrix)
 
 
 def movement(directon):
@@ -47,11 +48,11 @@ def copy_matrix():
             temp_array[j][i] = Matrix[j][i]
 
 
-def empty_mapping():
+def empty_mapping(array1):
     del empty_X[:]
     del empty_Y[:]
-    for hi in range(h):
-        for wi in range(w):
+    for hi in range(array_size(array1, 'h')):
+        for wi in range(array_size(array1, 'w')):
             if Matrix[hi][wi] == 0:
                 empty_X.append(wi)
                 empty_Y.append(hi)
@@ -61,7 +62,7 @@ def empty_mapping():
 def add_rand_number():
     numbers = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192]
     global new_value_X, new_value_Y
-    if (empty_mapping() > 0):
+    if (empty_mapping(Matrix) > 0):
         random_coord = randint(0, (len(empty_X) - 1))
         Matrix[empty_Y[random_coord]][empty_X[random_coord]] = numbers[randint(0, 1)]  # rand 2 or 4
         new_value_X = empty_X[random_coord]
@@ -74,19 +75,19 @@ def add_rand_number():
 def reset_matrix():
     global points
     points = 0
-    for hi in range(h):
-        for wi in range(w):
+    for hi in range(array_size(Matrix, 'h')):
+        for wi in range(array_size(Matrix, 'w')):
             Matrix[hi][wi] = 0
             temp_array[hi][wi] = 0
 
 
 def isMerged():
     b_merged = False
-    for wi in range(w):
-        for hi in range(h - 1):
+    for wi in range(array_size(Matrix, 'w')):
+        for hi in range(array_size(Matrix, 'h') - 1):
             if (Matrix[hi][wi] == Matrix[hi + 1][wi]) and (Matrix[hi][wi] != 0) and (Matrix[hi + 1][wi] != 0):
                 b_merged = True
-    for hi in range(h):
+    for hi in range(array_size(Matrix, 'h')):
         for wi in range(w - 1):
             if (Matrix[hi][wi] == Matrix[hi][wi + 1]) and (Matrix[hi][wi] != 0) and (Matrix[hi][wi + 1] != 0):
                 b_merged = True
@@ -95,7 +96,7 @@ def isMerged():
 
 def merge_left():
     global points
-    for hi in range(h):
+    for hi in range(array_size(Matrix, 'h')):
         temp_array = []
         for wi in range(w - 1):  # same value merge
             if (Matrix[hi][wi] == Matrix[hi][wi + 1]) and (Matrix[hi][wi] != 0) and (Matrix[hi][wi + 1] != 0):
@@ -105,14 +106,14 @@ def merge_left():
 
 
 def move_left():
-    for hi in range(h):
+    for hi in range(array_size(Matrix, 'h')):
         temp_array = []
-        for wi in range(w):  # check the numbers above zero and move it!
+        for wi in range(array_size(Matrix, 'w')):  # check the numbers above zero and move it!
             if Matrix[hi][wi] > 0:
                 temp_array.append(Matrix[hi][wi])
-        for i in range((w - len(temp_array))):
+        for i in range((array_size(Matrix, 'w') - len(temp_array))):
             temp_array.append(0)
-        for wi in range(w):
+        for wi in range(array_size(Matrix, 'h')):
             Matrix[hi][wi] = temp_array[wi]
 
 
@@ -120,7 +121,7 @@ def merge_right():
     global points
     for hi in range(h):
         temp_array = []
-        for wi in range(w):  # same value merge
+        for wi in range(array_size(Matrix, 'w')):  # same value merge
             if (Matrix[hi][wi] == Matrix[hi][wi - 1]) and (Matrix[hi][wi] != 0) and (Matrix[hi][wi - 1] != 0):
                 points += Matrix[hi][wi - 1] * 2
                 Matrix[hi][wi - 1] = Matrix[hi][wi] * 2
@@ -128,22 +129,22 @@ def merge_right():
 
 
 def move_right():
-    for hi in range(h):
+    for hi in range(array_size(Matrix, 'h')):
         temp_array = []
-        for wi in range(w):
+        for wi in range(array_size(Matrix, 'w')):
             if Matrix[hi][wi] > 0:
                 temp_array.append(Matrix[hi][wi])
-        for i in range((w - len(temp_array))):
+        for i in range((array_size(Matrix, 'w') - len(temp_array))):
             temp_array.insert(0, 0)
-        for wi in range(w):
+        for wi in range(array_size(Matrix, 'w')):
             Matrix[hi][wi] = temp_array[wi]
 
 
 def merge_down():
     global points
-    for wi in range(w):
+    for wi in range(array_size(Matrix, 'w')):
         temp_array = []
-        for hi in range(h - 1):  # same value merge
+        for hi in range(array_size(Matrix, 'h') - 1):  # same value merge
             if (Matrix[hi][wi] == Matrix[hi + 1][wi]) and (Matrix[hi][wi] != 0) and (Matrix[hi + 1][wi] != 0):
                 points += Matrix[hi][wi] * 2
                 Matrix[hi + 1][wi] = Matrix[hi][wi] * 2
@@ -151,22 +152,22 @@ def merge_down():
 
 
 def move_down():
-    for wi in range(w):
+    for wi in range(array_size(Matrix, 'w')):
         temp_array = []
-        for hi in range(h):
+        for hi in range(array_size(Matrix, 'h')):
             if Matrix[hi][wi] > 0:
                 temp_array.append(Matrix[hi][wi])
-        for i in range((h - len(temp_array))):
+        for i in range((array_size(Matrix, 'h') - len(temp_array))):
             temp_array.insert(0, 0)
-        for hi in range(h):
+        for hi in range(array_size(Matrix, 'h')):
             Matrix[hi][wi] = temp_array[hi]
 
 
 def merge_up():
     global points
-    for wi in range(w):
+    for wi in range(array_size(Matrix, 'w')):
         temp_array = []
-        for hi in range(h - 1):  # same value merge
+        for hi in range(array_size(Matrix, 'h') - 1):  # same value merge
             if (Matrix[hi][wi] == Matrix[hi + 1][wi]) and (Matrix[hi][wi] != 0) and (Matrix[hi + 1][wi] != 0):
                 points += Matrix[hi][wi] * 2
                 Matrix[hi][wi] = Matrix[hi][wi] * 2
@@ -174,24 +175,24 @@ def merge_up():
 
 
 def move_up():
-    for wi in range(w):
+    for wi in range(array_size(Matrix, 'w')):
         temp_array = []
-        for hi in range(h):
+        for hi in range(array_size(Matrix, 'h')):
             if Matrix[hi][wi] > 0:
                 temp_array.append(Matrix[hi][wi])
-        for i in range((h - len(temp_array))):
+        for i in range((array_size(Matrix, 'h') - len(temp_array))):
             temp_array.append(0)
-        for hi in range(h):
+        for hi in range(array_size(Matrix, 'h')):
             Matrix[hi][wi] = temp_array[hi]
 
 
 def draw_matrix_lines():
     global new_value_Y, new_value_X
     char_long = 5
-    for hi in range(h):
+    for hi in range(array_size(Matrix, 'h')):
         matrix_line = ''
         matrix_empty_line = ''
-        for wi in range(w):
+        for wi in range(array_size(Matrix, 'w')):
             spaces = ' ' * (char_long + 1 - len(str(Matrix[hi][wi])))
             spaces_end = ' ' * char_long
             if Matrix[hi][wi] == 0:
@@ -207,7 +208,7 @@ def draw_matrix_lines():
 def draw_matrix():
     os.system('clear')
     print('2048 GAME // Score: ' + str(points) + '\n')
-    if (empty_mapping() > 0):
+    if (empty_mapping(Matrix) > 0):
         draw_matrix_lines()
     else:
         if (isMerged() is False):
