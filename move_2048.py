@@ -1,5 +1,6 @@
 import os
 from random import randint
+from highscore_2048 import *
 
 empty_X = []
 empty_Y = []
@@ -11,10 +12,9 @@ points = 0
 
 
 def array_size(input_array, h_or_W='h'):
-    global h, w
     h = len(input_array)
     w = len(input_array[0])
-    if h_or_W == h:
+    if h_or_W == 'h':
         return h
     else:
         return w
@@ -48,7 +48,7 @@ def copy_matrix():
             temp_array[j][i] = Matrix[j][i]
 
 
-def empty_mapping(array1):
+def empty_mapping(array1=Matrix):
     del empty_X[:]
     del empty_Y[:]
     for hi in range(array_size(array1, 'h')):
@@ -60,11 +60,11 @@ def empty_mapping(array1):
 
 
 def add_rand_number():
-    numbers = [2, 4, 4, 4]
+    numbers = [2, 4, 4]
     global new_value_X, new_value_Y
     if (empty_mapping(Matrix) > 0):
         random_coord = randint(0, (len(empty_X) - 1))
-        Matrix[empty_Y[random_coord]][empty_X[random_coord]] = numbers[randint(0, 3)]  # rand 2 or 4
+        Matrix[empty_Y[random_coord]][empty_X[random_coord]] = numbers[randint(0, 2)]  # rand 2 or 4
         new_value_X = empty_X[random_coord]
         new_value_Y = empty_Y[random_coord]
     else:
@@ -88,7 +88,7 @@ def isMerged():
             if (Matrix[hi][wi] == Matrix[hi + 1][wi]) and (Matrix[hi][wi] != 0) and (Matrix[hi + 1][wi] != 0):
                 b_merged = True
     for hi in range(array_size(Matrix, 'h')):
-        for wi in range(w - 1):
+        for wi in range(array_size(Matrix, 'w') - 1):
             if (Matrix[hi][wi] == Matrix[hi][wi + 1]) and (Matrix[hi][wi] != 0) and (Matrix[hi][wi + 1] != 0):
                 b_merged = True
     return b_merged
@@ -98,7 +98,7 @@ def merge_left():
     global points
     for hi in range(array_size(Matrix, 'h')):
         temp_array = []
-        for wi in range(w - 1):  # same value merge
+        for wi in range(array_size(Matrix, 'w') - 1):  # same value merge
             if (Matrix[hi][wi] == Matrix[hi][wi + 1]) and (Matrix[hi][wi] != 0) and (Matrix[hi][wi + 1] != 0):
                 points += Matrix[hi][wi] * 2
                 Matrix[hi][wi] = Matrix[hi][wi] * 2
@@ -119,7 +119,7 @@ def move_left():
 
 def merge_right():
     global points
-    for hi in range(h):
+    for hi in range(array_size(Matrix, 'h')):
         temp_array = []
         for wi in range(array_size(Matrix, 'w')):  # same value merge
             if (Matrix[hi][wi] == Matrix[hi][wi - 1]) and (Matrix[hi][wi] != 0) and (Matrix[hi][wi - 1] != 0):
@@ -223,6 +223,9 @@ def draw_matrix():
             print('\x1b[1;33;40m' + spaces * 2)
             print(' ' * 15 + 'GAME OVER!' + ' ' * 15)
             print(spaces * 2 + '\n\x1b[0m')
+            player_name = input("Write your name here to the highscore: ")
+            os.system('clear')
+            highscore(player_name, array_size(Matrix, 'w'), array_size(Matrix, 'h'), points)
         else:
             draw_matrix_lines()
 
