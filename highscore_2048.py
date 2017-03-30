@@ -1,5 +1,6 @@
 # highscore
 import os.path
+from highscore_print_2048 import *
 def highscore(player_name, w, h, score):
     filename = 'highscore_2048_{}x{}.csv'.format(w, h)
     if os.path.isfile(filename):
@@ -14,3 +15,4 @@ def highscore(player_name, w, h, score):
     open_file = open(filename, "w")
     open_file.write(str(player_name) + ', ' + str(score))
     open_file.close()
+    highscore_print(filename)
