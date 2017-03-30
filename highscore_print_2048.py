@@ -6,10 +6,9 @@ kinyomtatni a dictet a többi fossal együtt
 '''
 from operator import itemgetter
 from highscore_2048 import *    
-def highscore_print():
+def highscore_print(filename):
 #imports data from .csv
-    filename = 'highscore_2048_{}x{}.csv'.format(w,h)
-    open_file = open('filename', "r")
+    open_file = open(filename, "r")
     hs = list(open_file.read().split(', '))
     open_file.close()
     hs_dict = {}
