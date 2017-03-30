@@ -7,20 +7,24 @@ def custom_size():
     h = 5
     os.system('clear')
     print('2048 GAME\n')
-    w_inp = input('Set width (max 10): ')
+    w_inp = input('Set width (min: 2 / max 10): ')
     try:
         w = int(w_inp)
         if w > 10:
             w = 10
-        print ('Width will be: ' + str(w))
+        if w < 3:
+            w = 3
+        print ('Width will be: ' + str(w) + '\n')
     except ValueError:
         print ('You got the default value: ' + str(w) + '\n')
 
-    h_inp = input('Set height (max 10): ')
+    h_inp = input('Set height (min: 2 / max 10): ')
     try:
         h = int(h_inp)
         if h > 10:
             h = 10
+        if h < 3:
+            h = 3
         print ('Height will be: ' + str(h))
     except ValueError:
         print ('You got the default value: ' + str(h) + '\n')

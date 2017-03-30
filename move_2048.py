@@ -60,11 +60,11 @@ def empty_mapping(array1):
 
 
 def add_rand_number():
-    numbers = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192]
+    numbers = [2, 4, 4, 4]
     global new_value_X, new_value_Y
     if (empty_mapping(Matrix) > 0):
         random_coord = randint(0, (len(empty_X) - 1))
-        Matrix[empty_Y[random_coord]][empty_X[random_coord]] = numbers[randint(0, 1)]  # rand 2 or 4
+        Matrix[empty_Y[random_coord]][empty_X[random_coord]] = numbers[randint(0, 3)]  # rand 2 or 4
         new_value_X = empty_X[random_coord]
         new_value_Y = empty_Y[random_coord]
     else:

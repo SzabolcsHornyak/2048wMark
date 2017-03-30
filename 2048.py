@@ -24,6 +24,7 @@ draw_matrix()
 while True:
     print('')
     c = input('MOVE: w/a/s/d | EXIT: x | NEW GAME: n | YOUR CHOICE? ')
+    c = c.lower()
     if c == ('w'):
         movement('up')
     if c == ('s'):
@@ -41,4 +42,4 @@ while True:
         add_rand_number()
         draw_matrix()
     else:
-        pass  # draw_matrix()
+        draw_matrix()
