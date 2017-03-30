@@ -207,7 +207,12 @@ def draw_matrix_lines():
 
 def draw_matrix():
     os.system('clear')
-    print('2048 GAME // Score: ' + str(points) + '\n')
+    print(" _____  _____    ___  _____")
+    print("/ __  \|  _  |  /   ||  _  |")
+    print("`' / /'| |/' | / /| | \ V / ")
+    print("  / /  |  /| |/ /_| | / _ \ ")
+    print("./ /___\ |_/ /\___  || |_| |")
+    print('\_____/ \___/     |_/\_____/  Score: ' + str(points) + '\n')
     if (empty_mapping(Matrix) > 0):
         draw_matrix_lines()
     else:
