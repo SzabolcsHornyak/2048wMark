@@ -25,6 +25,10 @@ def highscore_print(filename):
     h_score_seventh_row ='          __/ |                             '
     h_score_eigth_row =  '         |___/                              '
     print(h_score_first_row + '\n' + h_score_second_row + '\n' + h_score_third_row + '\n' + h_score_fourth_row + '\n' + h_score_fifth_row + '\n' + h_score_sixth_row + '\n' + h_score_seventh_row + '\n' + h_score_eigth_row + '\n\n' + 'player name'.ljust(length, ' ') + 'score'.rjust(length, ' ') + '\n' + '-'*length*2)
-    for i in range(0, 11):
+    if len(hs) <= 10:
+        ran = len(hs)
+    else:
+        ran = 11
+    for i in range(0, ran):
         if i % 2 == 1:
             print('\n' + str(hs[i - 1]).ljust(length, ' ') + str(hs[i]).rjust(length, ' '))
